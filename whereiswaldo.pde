@@ -1,9 +1,11 @@
 PImage img;
 
+
 void setup() {
-  size(1590, 981);
+  size(700, 431);
   frameRate(30);
-  img = loadImage("max.jpg");
+  img = loadImage("waldo.jpg");
+  img.resize(700, 0);
   img.loadPixels();
   // Only need to load the pixels[] array once, because we're only
   // manipulating pixels[] inside draw(), not drawing shapes.
@@ -11,13 +13,14 @@ void setup() {
   
 }
 
+boolean gameOver = false;
+
 void mouseClicked() {
   float[] coordinates = {mouseX, mouseY};
   if ((coordinates[0] <= 100) && (coordinates[1] <= 100)){
     print("found Waldo");
-    noLoop();
-    img = loadImage("max.jpg");
-    loadPixels();
+    gameOver = true;
+    redraw();
   } else {
     //value = 0;
     print("Clicked!");
@@ -25,7 +28,23 @@ void mouseClicked() {
 }
 
 void draw() {
-  for (int x = 0; x < img.width; x++) {
+  //imageMode(CORNER);
+  //image(img, 50, 50);
+  if (gameOver == true) {
+    loadPixels();
+    img = loadImage ("waldo.jpg");
+    img.loadPixels();
+    updatePixels();
+    noLoop ();
+  }
+  else {
+    playGame();
+  }
+
+}
+
+void playGame() {
+    for (int x = 0; x < img.width; x++) {
     for (int y = 0; y < img.height; y++ ) {
       // Calculate the 1D location from a 2D grid
       int loc = x + y*img.width;
