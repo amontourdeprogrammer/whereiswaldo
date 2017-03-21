@@ -28,13 +28,8 @@ void mouseClicked() {
 
 void draw() {
   noCursor();
-  //imageMode(CORNER);
-  //image(img, 50, 50);
   if (gameOver == true) {
-    loadPixels();
-    img = loadImage ("waldo.jpg");
-    img.loadPixels();
-    updatePixels();
+    image(img, 0, 0);
     noLoop ();
   }
   else {
