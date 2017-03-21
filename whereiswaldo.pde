@@ -17,17 +17,27 @@ void setup() {
 boolean gameWon = false;
 float xWaldo = 1266, yWaldo = 100;
 float originalImgWidth = 1590, originalImgHeight = 981;
+float searchRange = 100;
 
 void mouseClicked() {
   float xWaldo_fullscreen = (xWaldo * width)/ originalImgWidth;
   float yWaldo_fullscreen = (yWaldo * height)/ originalImgHeight;
   float waldoRange = dist(mouseX, mouseY, xWaldo_fullscreen, yWaldo_fullscreen);
-  if (waldoRange <= 100){
+  if (waldoRange <= searchRange){
     print("found Waldo");
     gameWon = true;
     redraw();
   } else {
     print("Clicked!");
+  }
+}
+
+void keyPressed() {
+  if (keyCode == UP){
+    searchRange -= 10;
+  }
+  else if (keyCode == DOWN) {
+    searchRange += 10;
   }
 }
 
@@ -63,9 +73,8 @@ void playGame() {
       s = saturation (img.pixels[loc]);
       b = brightness (img.pixels[loc]);
       // Calculate an amount to change brightness based on proximity to the mouse
-      float maxdist = 100;//dist(0,0,width,height);
       float d = dist(x, y, mouseX, mouseY);
-      if (d > maxdist) {
+      if (d > searchRange) {
         b = 0;
       } 
       // Constrain HSB to make sure they are within 0-100 brightness range
