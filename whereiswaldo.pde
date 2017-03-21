@@ -10,15 +10,17 @@ void setup() {
   // manipulating pixels[] inside draw(), not drawing shapes.
   loadPixels();
   colorMode(HSB, 100);
+  textSize(32);
+  textAlign(CENTER);
 }
 
-boolean gameOver = false;
+boolean gameWon = false;
 
 void mouseClicked() {
   float[] coordinates = {mouseX, mouseY};
   if ((coordinates[0] <= 100) && (coordinates[1] <= 100)){
     print("found Waldo");
-    gameOver = true;
+    gameWon = true;
     redraw();
   } else {
     //value = 0;
@@ -28,8 +30,18 @@ void mouseClicked() {
 
 void draw() {
   noCursor();
-  if (gameOver == true) {
+  if (gameWon == true) {
     image(img, 0, 0);
+    
+    String message = "Well done, you found Charlie!";
+    float message_width = textWidth(message);
+    
+    rectMode(RADIUS);
+    fill(100);
+    rect(width/2, height/2 - 10, 0.75 * message_width, 20);
+    
+    fill(0);
+    text(message, width/2, height/2);
     noLoop ();
   }
   else {
