@@ -1,10 +1,10 @@
 PImage img;
 
 void setup() {
-  size(700, 431);
+  fullScreen();
   frameRate(30);
   img = loadImage("waldo.jpg");
-  img.resize(700, 0);
+  img.resize(width, height);
   img.loadPixels();
   // Only need to load the pixels[] array once, because we're only
   // manipulating pixels[] inside draw(), not drawing shapes.
