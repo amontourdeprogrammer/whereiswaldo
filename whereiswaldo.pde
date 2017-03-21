@@ -15,15 +15,18 @@ void setup() {
 }
 
 boolean gameWon = false;
+float xWaldo = 1266, yWaldo = 100;
+float originalImgWidth = 1590, originalImgHeight = 981;
 
 void mouseClicked() {
-  float[] coordinates = {mouseX, mouseY};
-  if ((coordinates[0] <= 100) && (coordinates[1] <= 100)){
+  float xWaldo_fullscreen = (xWaldo * width)/ originalImgWidth;
+  float yWaldo_fullscreen = (yWaldo * height)/ originalImgHeight;
+  float waldoRange = dist(mouseX, mouseY, xWaldo_fullscreen, yWaldo_fullscreen);
+  if (waldoRange <= 100){
     print("found Waldo");
     gameWon = true;
     redraw();
   } else {
-    //value = 0;
     print("Clicked!");
   }
 }
@@ -33,15 +36,15 @@ void draw() {
   if (gameWon == true) {
     image(img, 0, 0);
     
-    String message = "Well done, you found Charlie!";
-    float message_width = textWidth(message);
-    
+    String congratsMessage = "Well done, you found Charlie!";
+    float messageWidth = textWidth(congratsMessage);
+    //Textbox manually placed
     rectMode(RADIUS);
     fill(100);
-    rect(width/2, height/2 - 10, 0.75 * message_width, 20);
+    rect(width/2, height/2 - 10, 0.75 * messageWidth, 20);
     
     fill(0);
-    text(message, width/2, height/2);
+    text(congratsMessage, width/2, height/2);
     noLoop ();
   }
   else {
@@ -62,7 +65,6 @@ void playGame() {
       // Calculate an amount to change brightness based on proximity to the mouse
       float maxdist = 100;//dist(0,0,width,height);
       float d = dist(x, y, mouseX, mouseY);
-      //float adjustbrightness = (maxdist-d)/maxdist;
       if (d > maxdist) {
         b = 0;
       } 
