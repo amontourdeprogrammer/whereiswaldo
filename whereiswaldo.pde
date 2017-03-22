@@ -1,6 +1,11 @@
 PImage img;
+PImage webImg;
 boolean gameWon = false;
 float xWaldo, yWaldo, originalImgWidth, originalImgHeight, searchRange;
+int nbClick = 0;
+boolean tryAgain = false;
+int startTryAgain;
+boolean gameLost = false;
 
 void setup() {
 fullScreen();
@@ -22,6 +27,10 @@ fullScreen();
   originalImgWidth = 1590;
   originalImgHeight = 981;
   searchRange = 100;
+  
+  String url = "https://media.giphy.com/media/Ur8qw9UJEhNuw/giphy.gif";
+  // Load image from a web server
+  webImg = loadImage(url, "gif");
 }
 
 void draw() {
@@ -32,6 +41,24 @@ void draw() {
   else {
     playGame();
   }
+  if (tryAgain) {
+    text("Try again", width/2, height/2 );
+    
+    if ((millis() - startTryAgain) > 500) {
+      tryAgain = false;
+      println(millis());
+      println(startTryAgain);
+    }
+  }
+  
+  if (gameLost) {
+    searchRange = 0;
+    text("Loooooser !!!!", width/2, height/3);
+    imageMode(CENTER);
+    image(webImg, width/2, height/2);
+    
+  }
+  
 }
 
 void playGame() {
@@ -60,6 +87,7 @@ void playGame() {
 }
 
 void mouseClicked() {
+  nbClick = nbClick + 1;
   float xWaldo_fullscreen = (xWaldo * width)/ originalImgWidth;
   float yWaldo_fullscreen = (yWaldo * height)/ originalImgHeight;
   float waldoRange = dist(mouseX, mouseY, xWaldo_fullscreen, yWaldo_fullscreen);
@@ -68,9 +96,20 @@ void mouseClicked() {
     gameWon = true;
     redraw();
   } else {
-    print("Clicked!");
+    wrongClick();
   }
 }
+
+void wrongClick() {
+  if (nbClick < 3) {
+    startTryAgain = millis();
+    tryAgain = true;
+  }
+  else {
+    gameLost = true;
+  }
+}
+
 
 void keyPressed() {
   if (keyCode == UP && searchRange <= height/3){
