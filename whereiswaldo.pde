@@ -3,7 +3,8 @@ boolean gameWon = false;
 float xWaldo, yWaldo, originalImgWidth, originalImgHeight, searchRange;
 
 void setup() {
-  fullScreen();
+fullScreen();
+//size(800,500);
   frameRate(30);
   img = loadImage("waldo.jpg");
   img.resize(width, height);
@@ -72,13 +73,14 @@ void mouseClicked() {
 }
 
 void keyPressed() {
-  if (keyCode == UP){
-    searchRange -= 10;
-  }
-  else if (keyCode == DOWN) {
+  if (keyCode == UP && searchRange <= height/3){
     searchRange += 10;
   }
+  else if (keyCode == DOWN && searchRange >= height/12) {
+    searchRange -= 10;
+  }
 }
+
 
 void endGame() {
     image(img, 0, 0);
