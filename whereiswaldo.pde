@@ -28,9 +28,9 @@ fullScreen();
   originalImgHeight = 981;
   searchRange = 100;
   
-  String url = "https://media.giphy.com/media/Ur8qw9UJEhNuw/giphy.gif";
+  String url = "http://vignette2.wikia.nocookie.net/fairytailfanon/images/7/7c/Fail_Meme.jpg";
   // Load image from a web server
-  webImg = loadImage(url, "gif");
+  webImg = loadImage(url, "jpg");
 }
 
 void draw() {
@@ -46,14 +46,12 @@ void draw() {
     
     if ((millis() - startTryAgain) > 500) {
       tryAgain = false;
-      println(millis());
-      println(startTryAgain);
     }
   }
   
   if (gameLost) {
     searchRange = 0;
-    text("Loooooser !!!!", width/2, height/3);
+    text("Loooooser !!!!", width/2, height/6);
     imageMode(CENTER);
     image(webImg, width/2, height/2);
     
