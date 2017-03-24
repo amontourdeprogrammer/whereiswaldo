@@ -106,6 +106,12 @@ void keyPressed() {
   } else if (keyCode == DOWN && searchRange >= height/12) {
     searchRange -= 10;
   }
+  if (keyCode == RIGHT) {
+    gameWon = false;
+    tryAgain = false;
+    gameLost = false;
+    loop();
+  }
 }
 
 
