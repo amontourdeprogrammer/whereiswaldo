@@ -106,7 +106,7 @@ void keyPressed() {
   } else if (keyCode == DOWN && searchRange >= height/12) {
     searchRange -= 10;
   }
-  if (keyCode == RIGHT) {
+  if (keyCode == ' ' && gameWon || gameLost) {
     gameWon = false;
     tryAgain = false;
     gameLost = false;
@@ -116,7 +116,7 @@ void keyPressed() {
 
 
 void endGame() {
-  image(waldoImg, 0, 0);
+  //image(waldoImg, 0, 0);
 
   String congratsMessage = "Well done, you found Charlie!";
   float messageWidth = textWidth(congratsMessage);
